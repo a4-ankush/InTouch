@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import api from "../api";
 import Navbar from "../components/Navbar";
 import UserDetails from "../components/UserDetails";
@@ -13,6 +14,7 @@ const Feed = () => {
   const [content, setContent] = useState("");
   const [error, setError] = useState("");
   const [user, setUser] = useState({ name: "", bio: "", posts: 0 });
+  const navigate = useNavigate();
 
   const handleLike = async (postId) => {
     try {
@@ -52,7 +54,7 @@ const Feed = () => {
         bio: res.data.bio,
       }));
     } catch (err) {
-      console.error(err);
+      navigate("/login");
     }
   };
 

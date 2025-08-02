@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { FaThumbsUp } from "react-icons/fa";
 import api from "../api";
 import Navbar from "../components/Navbar";
 
@@ -34,7 +35,6 @@ export default function Profile() {
       <Navbar />
       <div className="blue-background2">
         <div className="max-w-2xl mx-auto mt-12 px-4">
-          {/* LinkedIn-style profile card */}
           <div className="bg-white p-8 rounded-2xl shadow-xl mb-8 flex flex-col items-center border border-gray-200">
             <div className="flex items-center gap-4 mb-4">
               <span className="w-16 h-16 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 font-bold text-3xl shadow">
@@ -61,13 +61,19 @@ export default function Profile() {
                 className="bg-white p-5 rounded-xl border border-gray-200 shadow hover:shadow-lg transition"
               >
                 <p className="text-gray-800 text-base">{post.content}</p>
-                <p className="text-xs text-gray-400 mt-2 text-right">
-                  {new Date(post.createdAt).toLocaleDateString()}{" "}
-                  {new Date(post.createdAt).toLocaleTimeString([], {
-                    hour: "2-digit",
-                    minute: "2-digit",
-                  })}
-                </p>
+                <div className="flex justify-between items-center mt-2">
+                  <p className="text-xs text-gray-400 text-right">
+                    {new Date(post.createdAt).toLocaleDateString()}{" "}
+                    {new Date(post.createdAt).toLocaleTimeString([], {
+                      hour: "2-digit",
+                      minute: "2-digit",
+                    })}
+                  </p>
+                  <span className="flex items-center gap-2 text-blue-600 font-semibold text-sm">
+                    <FaThumbsUp className="text-base" />
+                    {post.likes?.length || 0}
+                  </span>
+                </div>
               </div>
             ))}
             {posts.length === 0 && (
