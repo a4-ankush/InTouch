@@ -1,34 +1,74 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { FaThumbsUp } from "react-icons/fa";
 import api from "../api";
 import Navbar from "../components/Navbar";
 
 export default function Profile() {
   const { id } = useParams();
+  const navigate = useNavigate();
   const [user, setUser] = useState(null);
   const [posts, setPosts] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  const fetchProfile = async () => {
+  // Get logged-in user info
+  const fetchLoggedInUser = async () => {
     try {
-      const userRes = await api.get(`/auth/me`);
-      const postsRes = await api.get(`/posts/user/${id}`);
-      const authorName = postsRes.data[0]?.author?.name;
+      const res = await api.get("/auth/me");
+      return res.data;
+    } catch (err) {
+      navigate("/login");
+      return null;
+    }
+  };
 
+  const fetchProfile = async (profileId) => {
+    try {
+      const userRes = await api.get(`/auth/${profileId}`); // <-- FIXED
+      const postsRes = await api.get(`/posts/user/${profileId}`);
       setUser({
-        name: authorName || userRes.data.name,
+        name: userRes.data.name,
         email: userRes.data.email,
         bio: userRes.data.bio,
       });
       setPosts(postsRes.data);
     } catch (err) {
-      console.error(err);
+      setUser(null);
+      setPosts([]);
+    } finally {
+      setLoading(false);
     }
   };
 
   useEffect(() => {
-    fetchProfile();
+    const loadProfile = async () => {
+      setLoading(true);
+      const loggedInUser = await fetchLoggedInUser();
+      if (!loggedInUser) return;
+      // If no id param, show logged-in user's profile
+      const profileId = id || loggedInUser._id;
+      fetchProfile(profileId);
+    };
+    loadProfile();
   }, [id]);
+
+  if (loading) return <div className="text-center mt-20">Loading...</div>;
+
+  if (!user) {
+    return (
+      <>
+        <Navbar />
+        <div className="flex items-center justify-center h-screen">
+          <span className="text-3xl font-bold text-red-600 mb-4">
+            User not found
+          </span>
+          <p className="text-gray-500 text-lg">
+            The profile you are looking for does not exist.
+          </p>
+        </div>
+      </>
+    );
+  }
 
   return (
     <>
@@ -51,7 +91,7 @@ export default function Profile() {
           </div>
 
           <h3 className="text-xl font-semibold mb-4 text-blue-700">
-            Posts by {user?.name?.split(" ")[0] || "You"}:
+            Posts by {user?.name?.split(" ")[0] || "User"}:
           </h3>
 
           <div className="space-y-4">

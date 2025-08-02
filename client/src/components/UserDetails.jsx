@@ -14,7 +14,7 @@ const UserDetails = ({ name, bio, posts, userId }) => (
     </p>
     <div className="flex items-center gap-2 mt-2">
       <span className="bg-blue-50 text-blue-700 px-3 py-1 rounded-full text-sm font-semibold">
-        Posts: {posts}
+        Posts: {Array.isArray(posts) ? posts.length : posts}
       </span>
     </div>
   </div>

@@ -45,3 +45,13 @@ exports.getUserProfile = async (req, res) => {
   const user = await User.findById(req.session.userId).select("-password");
   res.json(user);
 };
+
+exports.getUserById = async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id).select("-password");
+    if (!user) return res.status(404).json({ msg: "User not found" });
+    res.json(user);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};

@@ -52,6 +52,7 @@ const Feed = () => {
         ...prev,
         name: res.data.name,
         bio: res.data.bio,
+        _id: res.data._id,
       }));
     } catch (err) {
       navigate("/login");
@@ -85,7 +86,12 @@ const Feed = () => {
           {/* Left Column: User Details */}
           <div className="w-full md:w-1/4 mb-4 md:mb-0 md:sticky md:top-24 h-fit">
             <div className="rounded-xl shadow-lg bg-white border border-gray-200 p-6 flex flex-col items-center">
-              <UserDetails name={user.name} bio={user.bio} posts={user.posts} />
+              <UserDetails
+                name={user.name}
+                bio={user.bio}
+                posts={posts.filter((post) => post.author?._id === user._id)}
+                userId={user._id}
+              />
               <button
                 disabled
                 className="cursor-not-allowed mt-4 w-full py-2 px-4 bg-blue-600 text-white rounded-xl font-semibold hover:bg-blue-700 transition "
@@ -177,7 +183,9 @@ const Feed = () => {
                             </p>
                           </Link>
                           <p className="text-sm font-semibold text-gray-500 max-w-96">
-                            {user.bio || "Unknown"}
+                            {post.author?.bio && post.author.bio.trim() !== ""
+                              ? post.author.bio
+                              : "No bio available."}
                           </p>
                         </div>
                       </div>
