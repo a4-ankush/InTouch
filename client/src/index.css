@@ -12,3 +12,30 @@ body {
   background-color: white;
   color: black;
 }
+
+.blue-background {
+  position: relative;
+  background-image: url("./assets/10172464_17938277.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.blue-background::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  backdrop-filter: blur(1px); /* Adjust blur strength as needed */
+  z-index: 0;
+}
+
+.blue-background > * {
+  position: relative;
+  z-index: 1;
+}

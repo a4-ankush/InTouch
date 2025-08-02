@@ -1,0 +1,10 @@
+<svg id="logo1" class="logo-svg" viewBox="0 0 350 100" xmlns="http://www.w3.org/2000/svg"><defs><style xmlns="http://www.w3.org/1999/xhtml">@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500;600&amp;display=swap'); 
+                            .poppins-font { font-family: 'Poppins', sans-serif; font-weight: 500; font-size: 80px; }
+                        </style></defs>
+                        <style>
+                            .poppins-font { font-family: 'Poppins', sans-serif; font-weight: 500; font-size: 80px; }
+                        </style>
+                        <text x="0" y="75" class="poppins-font" fill="#1a202c">InTouch</text>
+                        <!-- Replace the dot on the 'i' -->
+                        <circle cx="28" cy="18" r="10" fill="#007BFF"/>
+                    </svg>
