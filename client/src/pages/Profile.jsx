@@ -71,10 +71,10 @@ export default function Profile() {
   }
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <>
       <Navbar />
-      <div className="blue-background2 flex-grow pt-20 pb-8">
-        <div className="max-w-2xl mx-auto px-4">
+      <div className="blue-background2 min-h-screen">
+        <div className="max-w-2xl mx-auto px-4 pt-24 pb-8">
           <div className="bg-white p-8 rounded-2xl shadow-xl mb-8 flex flex-col items-center border border-gray-200">
             <div className="flex items-center gap-4 mb-4">
               <span className="w-16 h-16 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 font-bold text-3xl shadow">
@@ -122,6 +122,6 @@ export default function Profile() {
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
