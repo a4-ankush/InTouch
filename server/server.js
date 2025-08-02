@@ -8,10 +8,27 @@ const cors = require("cors");
 dotenv.config();
 const app = express();
 
-// Middlewares
+// Set trust proxy for secure cookies behind a proxy
+app.set("trust proxy", 1);
+
+// Flexible CORS middleware that accepts multiple origins
 app.use(
   cors({
-    origin: process.env.FRONTEND_URL,
+    origin: function (origin, callback) {
+      // Allow requests with no origin (like mobile apps, curl requests)
+      if (!origin) return callback(null, true);
+
+      // Check if origin contains your base domain
+      if (
+        origin.includes("in-touch") &&
+        (origin.includes("vercel.app") || origin.includes("localhost"))
+      ) {
+        return callback(null, true);
+      }
+
+      const msg = "Not allowed by CORS";
+      return callback(new Error(msg), false);
+    },
     credentials: true,
   })
 );

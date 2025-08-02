@@ -34,7 +34,12 @@ exports.loginUser = async (req, res) => {
 
 exports.logoutUser = (req, res) => {
   req.session.destroy(() => {
-    res.clearCookie("connect.sid");
+    res.clearCookie("connect.sid", {
+      path: "/",
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "none",
+    });
     res.json({ msg: "Logged out successfully" });
   });
 };
