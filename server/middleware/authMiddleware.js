@@ -8,6 +8,6 @@ exports.protect = async (req, res, next) => {
   if (!user) {
     return res.status(401).json({ msg: "User not found" });
   }
-  req.user = user; // <-- Set the user object
+  req.user = user;
   next();
 };

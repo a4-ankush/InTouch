@@ -39,3 +39,29 @@ body {
   position: relative;
   z-index: 1;
 }
+.blue-background2 {
+  position: relative;
+  background-image: url("./assets/46756.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.blue-background2::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  backdrop-filter: blur(3px); /* Adjust blur strength as needed */
+  z-index: 0;
+}
+
+.blue-background2 > * {
+  position: relative;
+  z-index: 1;
+}
