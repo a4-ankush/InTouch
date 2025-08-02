@@ -11,7 +11,7 @@ const app = express();
 // Middlewares
 app.use(
   cors({
-    origin: process.env.FRONTEND_URL, // change to frontend domain in production
+    origin: process.env.FRONTEND_URL,
     credentials: true,
   })
 );
@@ -29,7 +29,7 @@ app.use(
     cookie: {
       maxAge: 1000 * 60 * 60 * 24 * 7, // 7 day
       httpOnly: true,
-      secure: false, // true if using HTTPS in production
+      secure: process.env.NODE_ENV === "production",
     },
   })
 );
