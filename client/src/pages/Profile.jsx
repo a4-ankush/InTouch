@@ -73,7 +73,7 @@ export default function Profile() {
   return (
     <>
       <Navbar />
-      <div className="blue-background2 min-h-screen">
+      <div className=" min-h-screen">
         <div className="max-w-2xl mx-auto px-4 pt-24 pb-8">
           <div className="bg-white p-8 rounded-2xl shadow-xl mb-8 flex flex-col items-center border border-gray-200">
             <div className="flex items-center gap-4 mb-4">
